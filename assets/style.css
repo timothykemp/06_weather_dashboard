@@ -1,0 +1,64 @@
+body {
+  padding: 71px;
+}
+
+button {
+  padding: 0rem;
+}
+
+button:focus {
+  outline: none;
+}
+
+label {
+  width: 100%;
+  font-weight: 500;
+}
+
+input:focus {
+  outline-color: teal;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+input {
+  width: 80%;
+}
+
+
+
+
+.btn {
+  padding: .25rem;
+}
+
+.card {
+
+}
+
+.card-body {
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.fas {
+  color: #343a40;
+  border: none;
+  background-color: transparent;
+}
+
+.fas:focus,
+.fas:hover {
+  color: teal;
+  border: none;
+  box-shadow: none;
+}
+
+
+
+#search-button {
+  border: none;
+  background-color: transparent;
+}
