@@ -4,6 +4,19 @@ body {
 
 h2 {
   font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+h5 {
+  font-weight: 400;
+}
+
+label {
+  margin-bottom: 0rem;
 }
 
 input:focus::placeholder {
@@ -14,10 +27,15 @@ input:focus::placeholder {
   padding: 1rem;
 }
 
+.col-lg,
 .col-lg-3,
 .col-lg-9 {
   padding-right: 10px;
   padding-left: 10px;
+}
+
+.jumbotron {
+  padding: 1rem 1rem;
 }
 
 .side-card {

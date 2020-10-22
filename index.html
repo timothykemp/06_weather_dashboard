@@ -95,24 +95,22 @@
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-lg">
+
                             <div class="row">
                                 <div class="col-lg">
                                     <div class="jumbotron my-4 bg-white text-dark border">
-                                        <h1 class="display-4">Hello, world!</h1>
-                                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component
-                                            for calling extra attention to
-                                            featured content or information.</p>
-                                        <hr class="my-4">
-                                        <p>It uses utility classes for typography and spacing to space content out
-                                            within the larger container.</p>
-                                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                                        <h2 id="todayHeader"></h2>
+                                        <p class="lead" id="todayTemp"></p>
+                                        <p class="lead" id="todayHumid"></p>
+                                        <p class="lead" id="todayWind"></p>
+                                        <p class="lead" id="todayUV"></p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg">
-                                    <h2>5-Day Forecast:</h2>
+                                    <h3>5-Day Forecast:</h3>
                                 </div>
                             </div>
 
@@ -120,48 +118,61 @@
                                 <div class="col-lg">
                                     <div class="card text-white bg-primary">
                                         <div class="card-body">
-                                            This is some text within a card body.
+                                            <h5 id="day1Header"></h5>
+                                            <p class="lead" id="day1Icon"></p>
+                                            <p class="lead" id="day1Temp"></p>
+                                            <p class="lead" id="day1Humid"></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg">
-                                    <div class="card">
+                                    <div class="card text-white bg-primary">
                                         <div class="card-body">
-                                            This is some text within a card body.
+                                            <h5 id="day2Header"></h5>
+                                            <p class="lead" id="day2Icon"></p>
+                                            <p class="lead" id="day2Temp"></p>
+                                            <p class="lead" id="day2Humid"></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg">
-                                    <div class="card">
+                                    <div class="card text-white bg-primary">
                                         <div class="card-body">
-                                            This is some text within a card body.
+                                            <h5 id="day3Header"></h5>
+                                            <p class="lead" id="day3Icon"></p>
+                                            <p class="lead" id="day3Temp"></p>
+                                            <p class="lead" id="day3Humid"></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg">
-                                    <div class="card">
+                                    <div class="card text-white bg-primary">
                                         <div class="card-body">
-                                            This is some text within a card body.
+                                            <h5 id="day4Header"></h5>
+                                            <p class="lead" id="day4Icon"></p>
+                                            <p class="lead" id="day4Temp"></p>
+                                            <p class="lead" id="day4Humid"></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg">
-                                    <div class="card">
+                                    <div class="card text-white bg-primary">
                                         <div class="card-body">
-                                            This is some text within a card body.
+                                            <h5 id="day5Header"></h5>
+                                            <p class="lead" id="day5Icon"></p>
+                                            <p class="lead" id="day5Temp"></p>
+                                            <p class="lead" id="day5Humid"></p>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
 
             </div>
@@ -180,6 +191,9 @@
 
     <!-- Ajax JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- Custom JS -->
     <script src="./assets/script.js"></script>
