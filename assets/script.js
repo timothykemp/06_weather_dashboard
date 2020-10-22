@@ -23,7 +23,7 @@ $(document).ready(function () {
         // Looping through the array of cities
         for (var i = 0; i < cities.length; i++) {
 
-            // Then dynamically generating buttons for each city in the array
+            // Then dynamically generating <li> for each city in the array
             var cityName = $("<li>");
             // Adding a class of city to our button
             cityName.addClass("city list-group-item");
@@ -61,28 +61,24 @@ $(document).ready(function () {
         // This line grabs the input from the text box
         var city = $("#city-text").val().trim();
 
+        // If form is empty, return early
         if (city === "") {
             return;
         }
 
         // Adding the city from the text box to our array
         cities.push(city);
-        console.log(cities);
-
-
 
         // Calling storeCities and renderCities which handle the processing of our cities array
         storeCities();
         renderCities();
-        buildToday();
+        buildWeatherData();
         buildFiveDay1();
         buildFiveDay2();
         buildFiveDay3();
         buildFiveDay4();
         buildFiveDay5();
         clearForm();
-
-
 
     });
 
@@ -96,15 +92,100 @@ $(document).ready(function () {
 
     }
 
-    function buildToday() {
-        var lastCity = cities[cities.length - 1];
 
-        $("#todayHeader").text(lastCity + " (" + today + ")");
-        $("#todayTemp").text("Temperature: ");
-        $("#todayHumid").text("Humidity: ");
-        $("#todayWind").text("Wind Speed: ");
-        $("#todayUV").text("UV Index: ");
+
+    function buildWeatherData() {
+        var currentCity = cities[cities.length - 1];
+
+        getCurrentDay();
+
+        function getCurrentDay() {
+            // Here we are building the URL we need to query the database
+            var baseURL = "https://api.openweathermap.org/data/2.5/weather?";
+            var cityQueried = "q=" + currentCity;
+            var APIKey = "&appid=f1cd94f0ec459b9c193af77b9024b593";
+            var queryURL = baseURL + cityQueried + APIKey;
+
+            // Here we run our AJAX call to the OpenWeatherMap API
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+                // We store all of the retrieved data inside of an object called "response"
+                .then(function (response) {
+
+                    // Log the object
+                    console.log(response);
+
+                    // Convert temp to Fahrenheit
+                    var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+                    var tempRoundF = tempF.toFixed(1);;
+                    var humid = response.main.humidity;;
+                    var wind = response.wind.speed.toFixed(1);
+
+                    // Build weather icon for current day
+                    var icon = $("<img>");
+                    var iconCode = response.weather[0].icon;
+                    var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+
+                    icon.attr("src", iconURL)
+                        .attr("alt", response.weather[0].description)
+                        .attr("title", response.weather[0].description);
+
+                    // Transfer content to HTML
+                    $("#todayHeader").text(currentCity + " (" + today + ")")
+                        .append(icon);
+                    $("#todayTemp").text("Temperature: " + tempRoundF + " \xB0F");
+                    $("#todayHumid").text("Humidity: " + humid + "\x25");
+                    $("#todayWind").text("Wind Speed: " + wind + " mph");
+                    $("#todayUV").text("UV Index: ");
+
+                })
+        }
+
+        function getCurrentUV() {
+            // Here we are building the URL we need to query the database
+            var APIKey = "&appid=f1cd94f0ec459b9c193af77b9024b593";
+            var queryURL = "http://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
+
+            // Here we run our AJAX call to the OpenWeatherMap API
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+                // We store all of the retrieved data inside of an object called "response"
+                .then(function (response) {
+
+                    // Log the object
+                    console.log(response);
+
+                    // Convert temp to Fahrenheit
+                    var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+                    var tempRoundF = tempF.toFixed(1);;
+                    var humid = response.main.humidity;;
+                    var wind = response.wind.speed.toFixed(1);
+
+                    // Build weather icon for current day
+                    var icon = $("<img>");
+                    var iconCode = response.weather[0].icon;
+                    var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+
+                    icon.attr("src", iconURL)
+                        .attr("alt", response.weather[0].description)
+                        .attr("title", response.weather[0].description);
+
+                    // Transfer content to HTML
+                    $("#todayHeader").text(currentCity + " (" + today + ")")
+                        .append(icon);
+                    $("#todayTemp").text("Temperature: " + tempRoundF + " \xB0F");
+                    $("#todayHumid").text("Humidity: " + humid + "\x25");
+                    $("#todayWind").text("Wind Speed: " + wind + " mph");
+                    $("#todayUV").text("UV Index: ");
+
+                })
+        }
     }
+
 
     function buildFiveDay1() {
         $("#day1Header").text(fiveDay1);
@@ -143,7 +224,7 @@ $(document).ready(function () {
 
     // Calling the renderCities function to display the initial cities
     renderCities();
-    buildToday();
+    buildWeatherData();
     buildFiveDay1();
     buildFiveDay2();
     buildFiveDay3();
