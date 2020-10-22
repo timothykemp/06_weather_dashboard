@@ -1,5 +1,5 @@
-// Initial array of cities
-var cities = [];
+// Initial array of cities with Kansas City as default
+var cities = ["Kansas City"];
 
 init();
 
@@ -22,7 +22,7 @@ function renderCities() {
         // Providing the initial button text
         cityName.text(cities[i]);
         // Adding the button to the buttons-view div
-        $("#city-list").append(cityName);
+        $("#city-list").prepend(cityName);
     }
 }
 
@@ -45,20 +45,40 @@ function storeCities() {
 }
 
 // This function handles events where one button is clicked
-$("#city-search").on("click", function (event) {
+$("#city-search").click(function (event) {
     event.preventDefault();
 
     // This line grabs the input from the text box
     var city = $("#city-text").val().trim();
 
+    if (city === "") {
+        return;
+    }
+
     // Adding the city from the text box to our array
     cities.push(city);
     console.log(cities);
 
+
+
     // Calling storeCities and renderCities which handle the processing of our cities array
     storeCities();
     renderCities();
+    clearForm();
+
+
+
 });
+
+// Reset placeholder text in form
+function clearForm() {
+    $("#city-text").each(function () {
+        $(this).val("");
+        x = 1;
+    });
+    $("#city-text").first().focus();
+
+}
 
 // Calling the renderCities function to display the initial cities
 renderCities();

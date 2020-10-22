@@ -2,8 +2,22 @@ body {
   padding: 71px;
 }
 
+h2 {
+  font-weight: 400;
+}
+
 input:focus::placeholder {
   color: transparent;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.col-lg-3,
+.col-lg-9 {
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .side-card {
@@ -12,5 +26,6 @@ input:focus::placeholder {
 
 .list-group-item {
   margin-bottom: 0rem;
+  font-weight: 300;
+  color: #495057;
 }
-
