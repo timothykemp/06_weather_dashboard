@@ -14,9 +14,9 @@ function renderCities() {
     for (var i = 0; i < cities.length; i++) {
 
         // Then dynamically generating buttons for each city in the array
-        var cityName = $("<div>");
+        var cityName = $("<li>");
         // Adding a class of city to our button
-        cityName.addClass("city");
+        cityName.addClass("city list-group-item");
         // Adding a data-attribute
         cityName.attr("data-name", cities[i]);
         // Providing the initial button text
