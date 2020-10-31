@@ -3,24 +3,25 @@ body {
 }
 
 h2 {
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 1rem;
 }
 
 h3 {
-  font-weight: 400;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
 }
 
 h5 {
-  font-weight: 400;
-}
-
-label {
-  margin-bottom: 0rem;
+  font-weight: 500;
 }
 
 input:focus::placeholder {
   color: transparent;
+}
+
+label {
+  margin-bottom: 0rem;
 }
 
 .card-body {
@@ -34,12 +35,16 @@ input:focus::placeholder {
   padding-left: 10px;
 }
 
+.icon {
+  margin-bottom: 0;
+}
+
 .jumbotron {
   padding: 1rem 1rem;
 }
 
-.side-card {
-  padding-top: 1rem;
+.last-div {
+  margin-bottom: 0;
 }
 
 .list-group-item {
@@ -47,3 +52,8 @@ input:focus::placeholder {
   font-weight: 300;
   color: #495057;
 }
+
+.side-card {
+  padding-top: 1rem;
+}
+
