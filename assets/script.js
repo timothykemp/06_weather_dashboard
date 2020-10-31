@@ -118,6 +118,12 @@ $(document).ready(function () {
                     console.log(response);
 
                     // Convert temp to Fahrenheit
+                    var longitude = (response.coord.lon);
+                    var latitude = (response.coord.lat);
+
+                    console.log('longitude :>> ', longitude);
+                    console.log('latitude :>> ', latitude);
+
                     var tempF = (response.main.temp - 273.15) * 1.80 + 32;
                     var tempRoundF = tempF.toFixed(1);;
                     var humid = response.main.humidity;;
@@ -138,15 +144,19 @@ $(document).ready(function () {
                     $("#todayTemp").text("Temperature: " + tempRoundF + " \xB0F");
                     $("#todayHumid").text("Humidity: " + humid + "\x25");
                     $("#todayWind").text("Wind Speed: " + wind + " mph");
-                    $("#todayUV").text("UV Index: ");
+
+                    getCurrentUV(longitude, latitude);
 
                 })
         }
 
-        function getCurrentUV() {
+        function getCurrentUV(longitude, latitude) {
             // Here we are building the URL we need to query the database
-            var APIKey = "&appid=f1cd94f0ec459b9c193af77b9024b593";
-            var queryURL = "http://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
+            var long = longitude;
+            var lat = latitude;
+
+            var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
+            var queryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
             $.ajax({
@@ -159,28 +169,11 @@ $(document).ready(function () {
                     // Log the object
                     console.log(response);
 
-                    // Convert temp to Fahrenheit
-                    var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-                    var tempRoundF = tempF.toFixed(1);;
-                    var humid = response.main.humidity;;
-                    var wind = response.wind.speed.toFixed(1);
+                    var indexUV = (response.value);
 
-                    // Build weather icon for current day
-                    var icon = $("<img>");
-                    var iconCode = response.weather[0].icon;
-                    var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                    console.log('indexUV :>> ', indexUV);
 
-                    icon.attr("src", iconURL)
-                        .attr("alt", response.weather[0].description)
-                        .attr("title", response.weather[0].description);
-
-                    // Transfer content to HTML
-                    $("#todayHeader").text(currentCity + " (" + today + ")")
-                        .append(icon);
-                    $("#todayTemp").text("Temperature: " + tempRoundF + " \xB0F");
-                    $("#todayHumid").text("Humidity: " + humid + "\x25");
-                    $("#todayWind").text("Wind Speed: " + wind + " mph");
-                    $("#todayUV").text("UV Index: ");
+                    $("#todayUV").text("UV Index: " + indexUV);
 
                 })
         }
