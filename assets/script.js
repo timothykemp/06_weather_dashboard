@@ -129,7 +129,7 @@ $(document).ready(function () {
                     // Build weather icon for current day
                     var icon = $("<img>");
                     var iconCode = response.weather[0].icon;
-                    var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                    var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png";
 
                     icon.attr("src", iconURL)
                         .attr("alt", response.weather[0].description)
@@ -153,7 +153,7 @@ $(document).ready(function () {
             var lat = latitude;
 
             var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
-            var queryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + APIKey;
+            var queryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
             $.ajax({
@@ -175,7 +175,7 @@ $(document).ready(function () {
 
         function getFiveDay() {
             // Here we are building the URL we need to query the database
-            var baseURL = "http://api.openweathermap.org/data/2.5/forecast?q=";
+            var baseURL = "https://api.openweathermap.org/data/2.5/forecast?q=";
             var cityQueried = currentCity;
             var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
             var queryURL = baseURL + cityQueried + "&units=imperial" + "&appid=" + APIKey;
@@ -195,7 +195,7 @@ $(document).ready(function () {
                     var tempFDay1 = (response.list[0].main.temp).toFixed(1);
                     var humidDay1 = (response.list[0].main.humidity);
                     var iconDay1 = response.list[0].weather[0].icon;
-                    var iconDay1URL = "http://openweathermap.org/img/w/" + iconDay1 + ".png";
+                    var iconDay1URL = "https://openweathermap.org/img/w/" + iconDay1 + ".png";
 
                     // Transfer content to HTML
                     $("#day1Header").text(fiveDay1);
@@ -209,7 +209,7 @@ $(document).ready(function () {
                     var tempFDay2 = (response.list[1].main.temp).toFixed(1);
                     var humidDay2 = (response.list[1].main.humidity);
                     var iconDay2 = response.list[1].weather[0].icon;
-                    var iconDay2URL = "http://openweathermap.org/img/w/" + iconDay2 + ".png";
+                    var iconDay2URL = "https://openweathermap.org/img/w/" + iconDay2 + ".png";
 
                     // Transfer content to HTML
                     $("#day2Header").text(fiveDay2);
@@ -223,7 +223,7 @@ $(document).ready(function () {
                     var tempFDay3 = (response.list[2].main.temp).toFixed(1);
                     var humidDay3 = (response.list[2].main.humidity);
                     var iconDay3 = response.list[2].weather[0].icon;
-                    var iconDay3URL = "http://openweathermap.org/img/w/" + iconDay3 + ".png";
+                    var iconDay3URL = "https://openweathermap.org/img/w/" + iconDay3 + ".png";
 
                     // Transfer content to HTML
                     $("#day3Header").text(fiveDay3);
@@ -237,7 +237,7 @@ $(document).ready(function () {
                     var tempFDay4 = (response.list[3].main.temp).toFixed(1);
                     var humidDay4 = (response.list[3].main.humidity);
                     var iconDay4 = response.list[3].weather[0].icon;
-                    var iconDay4URL = "http://openweathermap.org/img/w/" + iconDay4 + ".png";
+                    var iconDay4URL = "https://openweathermap.org/img/w/" + iconDay4 + ".png";
 
                     // Transfer content to HTML
                     $("#day4Header").text(fiveDay4);
@@ -251,7 +251,7 @@ $(document).ready(function () {
                     var tempFDay5 = (response.list[4].main.temp).toFixed(1);
                     var humidDay5 = (response.list[4].main.humidity);
                     var iconDay5 = response.list[4].weather[0].icon;
-                    var iconDay5URL = "http://openweathermap.org/img/w/" + iconDay5 + ".png";
+                    var iconDay5URL = "https://openweathermap.org/img/w/" + iconDay5 + ".png";
 
                     // Transfer content to HTML
                     $("#day5Header").text(fiveDay5);
