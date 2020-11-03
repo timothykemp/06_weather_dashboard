@@ -72,7 +72,6 @@ $(document).ready(function () {
             cities.push(city);
         }
 
-
         // Calling storeCities and renderCities which handle the processing of our cities array
         storeCities();
         renderCities();
@@ -96,8 +95,6 @@ $(document).ready(function () {
         return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     }
 
-
-
     function buildWeatherData() {
         var currentCity = cities[cities.length - 1];
 
@@ -107,7 +104,7 @@ $(document).ready(function () {
             // Here we are building the URL we need to query the database
             var baseURL = "https://api.openweathermap.org/data/2.5/weather?";
             var cityQueried = "q=" + currentCity;
-            var APIKey = "&appid=f1cd94f0ec459b9c193af77b9024b593";
+            var APIKey = "&appid=b73b45c74b8ca2576006612e7b9f8a87";
             var queryURL = baseURL + cityQueried + "&units=imperial" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
@@ -156,7 +153,7 @@ $(document).ready(function () {
 
         function getCurrentUV() {
             // Here we are building the URL we need to query the database
-            var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
+            var APIKey = "b73b45c74b8ca2576006612e7b9f8a87";
             var queryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
@@ -177,10 +174,9 @@ $(document).ready(function () {
                 })
         }
 
-
         function getFiveDay() {
             // Here we are building the URL we need to query the database
-            var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
+            var APIKey = "b73b45c74b8ca2576006612e7b9f8a87";
             var queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=current,minutely,hourly,alerts" + "&units=imperial" + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
@@ -277,8 +273,6 @@ $(document).ready(function () {
                 })
         }
     }
-
-
 
     // Calling the renderCities function to display the initial cities
     renderCities();
