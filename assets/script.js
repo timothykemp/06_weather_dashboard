@@ -177,9 +177,8 @@ $(document).ready(function () {
             // Here we are building the URL we need to query the database
             var baseURL = "http://api.openweathermap.org/data/2.5/forecast?q=";
             var cityQueried = currentCity;
-            var dayCount = 5;
             var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
-            var queryURL = baseURL + cityQueried + "&cnt=" + dayCount + "&units=imperial" + "&appid=" + APIKey;
+            var queryURL = baseURL + cityQueried + "&units=imperial" + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
             $.ajax({
