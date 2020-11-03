@@ -91,13 +91,17 @@ $(document).ready(function () {
 
     }
 
+    // Capitalize descriptions
+    function capitalize_Words(str) {
+        return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
+
 
 
     function buildWeatherData() {
         var currentCity = cities[cities.length - 1];
 
         getCurrentDay();
-        getFiveDay();
 
         function getCurrentDay() {
             // Here we are building the URL we need to query the database
@@ -118,8 +122,8 @@ $(document).ready(function () {
                     console.log(response);
 
                     // Convert temp to Fahrenheit
-                    var longitude = (response.coord.lon);
-                    var latitude = (response.coord.lat);
+                    longitude = (response.coord.lon);
+                    latitude = (response.coord.lat);
 
                     var tempF = response.main.temp;
                     var tempRoundF = tempF.toFixed(1);
@@ -130,10 +134,12 @@ $(document).ready(function () {
                     var icon = $("<img>");
                     var iconCode = response.weather[0].icon;
                     var iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png";
+                    var descriptionCurr = response.weather[0].description;
+                    var descCapsCurr = capitalize_Words(descriptionCurr);
 
                     icon.attr("src", iconURL)
-                        .attr("alt", response.weather[0].description)
-                        .attr("title", response.weather[0].description);
+                        .attr("alt", descCapsCurr)
+                        .attr("title", descCapsCurr);
 
                     // Transfer content to HTML
                     $("#todayHeader").text(currentCity + " (" + today + ")")
@@ -143,17 +149,15 @@ $(document).ready(function () {
                     $("#todayWind").text("Wind Speed: " + wind + " mph");
 
                     getCurrentUV(longitude, latitude);
+                    getFiveDay(longitude, latitude);
 
                 })
         }
 
-        function getCurrentUV(longitude, latitude) {
+        function getCurrentUV() {
             // Here we are building the URL we need to query the database
-            var long = longitude;
-            var lat = latitude;
-
             var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
-            var queryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + APIKey;
+            var queryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
             $.ajax({
@@ -173,12 +177,11 @@ $(document).ready(function () {
                 })
         }
 
+
         function getFiveDay() {
             // Here we are building the URL we need to query the database
-            var baseURL = "https://api.openweathermap.org/data/2.5/forecast?q=";
-            var cityQueried = currentCity;
             var APIKey = "f1cd94f0ec459b9c193af77b9024b593";
-            var queryURL = baseURL + cityQueried + "&units=imperial" + "&appid=" + APIKey;
+            var queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=current,minutely,hourly,alerts" + "&units=imperial" + "&appid=" + APIKey;
 
             // Here we run our AJAX call to the OpenWeatherMap API
             $.ajax({
@@ -192,74 +195,85 @@ $(document).ready(function () {
                     console.log(response);
 
                     //Build Five Day 1
-                    var tempFDay1 = (response.list[0].main.temp).toFixed(1);
-                    var humidDay1 = (response.list[0].main.humidity);
-                    var iconDay1 = response.list[0].weather[0].icon;
+                    var tempFDay1 = (response.daily[1].temp.max).toFixed(1);
+                    var humidDay1 = (response.daily[1].humidity);
+                    var iconDay1 = response.daily[1].weather[0].icon;
                     var iconDay1URL = "https://openweathermap.org/img/w/" + iconDay1 + ".png";
+                    var description1 = response.daily[1].weather[0].description;
+                    var descCaps1 = capitalize_Words(description1);
 
                     // Transfer content to HTML
                     $("#day1Header").text(fiveDay1);
                     $("#day1Icon").attr("src", iconDay1URL)
-                        .attr("alt", response.list[0].weather[0].description)
-                        .attr("title", response.list[0].weather[0].description);
+                        .attr("alt", descCaps1)
+                        .attr("title", descCaps1);
                     $("#day1Temp").text("Temp: " + tempFDay1 + " \xB0F");
                     $("#day1Humid").text("Humidity: " + humidDay1 + "\x25");
 
                     //Build Five Day 2
-                    var tempFDay2 = (response.list[1].main.temp).toFixed(1);
-                    var humidDay2 = (response.list[1].main.humidity);
-                    var iconDay2 = response.list[1].weather[0].icon;
+                    var tempFDay2 = (response.daily[2].temp.max).toFixed(1);
+                    var humidDay2 = (response.daily[2].humidity);
+                    var iconDay2 = response.daily[2].weather[0].icon;
                     var iconDay2URL = "https://openweathermap.org/img/w/" + iconDay2 + ".png";
+                    var description2 = response.daily[2].weather[0].description;
+                    var descCaps2 = capitalize_Words(description2);
 
                     // Transfer content to HTML
                     $("#day2Header").text(fiveDay2);
                     $("#day2Icon").attr("src", iconDay2URL)
-                        .attr("alt", response.list[1].weather[0].description)
-                        .attr("title", response.list[1].weather[0].description);
+                        .attr("alt", descCaps2)
+                        .attr("title", descCaps2);
                     $("#day2Temp").text("Temp: " + tempFDay2 + " \xB0F");
                     $("#day2Humid").text("Humidity: " + humidDay2 + "\x25");
 
                     //Build Five Day 3
-                    var tempFDay3 = (response.list[2].main.temp).toFixed(1);
-                    var humidDay3 = (response.list[2].main.humidity);
-                    var iconDay3 = response.list[2].weather[0].icon;
+                    var tempFDay3 = (response.daily[3].temp.max).toFixed(1);
+                    var humidDay3 = (response.daily[3].humidity);
+                    var iconDay3 = response.daily[3].weather[0].icon;
                     var iconDay3URL = "https://openweathermap.org/img/w/" + iconDay3 + ".png";
+                    var description3 = response.daily[3].weather[0].description;
+                    var descCaps3 = capitalize_Words(description3);
 
                     // Transfer content to HTML
                     $("#day3Header").text(fiveDay3);
                     $("#day3Icon").attr("src", iconDay3URL)
-                        .attr("alt", response.list[2].weather[0].description)
-                        .attr("title", response.list[2].weather[0].description);
+                        .attr("alt", descCaps3)
+                        .attr("title", descCaps3);
                     $("#day3Temp").text("Temp: " + tempFDay3 + " \xB0F");
                     $("#day3Humid").text("Humidity: " + humidDay3 + "\x25");
 
                     //Build Five Day 4
-                    var tempFDay4 = (response.list[3].main.temp).toFixed(1);
-                    var humidDay4 = (response.list[3].main.humidity);
-                    var iconDay4 = response.list[3].weather[0].icon;
+                    var tempFDay4 = (response.daily[4].temp.max).toFixed(1);
+                    var humidDay4 = (response.daily[4].humidity);
+                    var iconDay4 = response.daily[4].weather[0].icon;
                     var iconDay4URL = "https://openweathermap.org/img/w/" + iconDay4 + ".png";
+                    var description4 = response.daily[4].weather[0].description;
+                    var descCaps4 = capitalize_Words(description4);
 
                     // Transfer content to HTML
                     $("#day4Header").text(fiveDay4);
                     $("#day4Icon").attr("src", iconDay4URL)
-                        .attr("alt", response.list[3].weather[0].description)
-                        .attr("title", response.list[3].weather[0].description);
+                        .attr("alt", descCaps4)
+                        .attr("title", descCaps4);
                     $("#day4Temp").text("Temp: " + tempFDay4 + " \xB0F");
                     $("#day4Humid").text("Humidity: " + humidDay4 + "\x25");
 
                     //Build Five Day 5
-                    var tempFDay5 = (response.list[4].main.temp).toFixed(1);
-                    var humidDay5 = (response.list[4].main.humidity);
-                    var iconDay5 = response.list[4].weather[0].icon;
+                    var tempFDay5 = (response.daily[5].temp.max).toFixed(1);
+                    var humidDay5 = (response.daily[5].humidity);
+                    var iconDay5 = response.daily[5].weather[0].icon;
                     var iconDay5URL = "https://openweathermap.org/img/w/" + iconDay5 + ".png";
+                    var description5 = response.daily[5].weather[0].description;
+                    var descCaps5 = capitalize_Words(description5);
 
                     // Transfer content to HTML
                     $("#day5Header").text(fiveDay5);
                     $("#day5Icon").attr("src", iconDay5URL)
-                        .attr("alt", response.list[4].weather[0].description)
-                        .attr("title", response.list[4].weather[0].description);
+                        .attr("alt", descCaps5)
+                        .attr("title", descCaps5);
                     $("#day5Temp").text("Temp: " + tempFDay5 + " \xB0F");
                     $("#day5Humid").text("Humidity: " + humidDay5 + "\x25");
+
                 })
         }
     }
